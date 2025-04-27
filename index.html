@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetiana Moshenets - Dance Instructor</title>
+  <meta name="description" content="Professional dance teacher based in Miami, Florida">
+  <!-- Tailwind CSS from CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js for simple interactions -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- AOS (Animate On Scroll) library -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  
+  <style>
+    /* Custom styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #522553, #000000, #522553 100%);
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #522553, #000000, #522553);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .hero-section {
+      background-image: url('https://images.unsplash.com/photo-1508807526345-15e9a5dc5567?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #522553, #000000, #522553 100%);
+    }
+    
+    .texture-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.03);
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Custom animations */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 154, 158, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 154, 158, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 154, 158, 0); }
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body class="font-light text-gray-900 bg-white">
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm" x-data="{ isOpen: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <a href="#" class="flex-shrink-0 flex items-center">
+            <span class="text-xl font-bold gradient-text">Tetiana Moshenets</span>
+          </a>
+        </div>
+
+        <!-- Desktop menu -->
+        <div class="hidden sm:ml-6 sm:flex sm:items-center">
+          <div class="flex space-x-8">
+            <a href="#home" class="px-3 py-2 text-sm font-medium text-gray-900 nav-link">Home</a>
+            <a href="#about" class="px-3 py-2 text-sm font-medium text-gray-900 nav-link">About</a>
+            <a href="#classes" class="px-3 py-2 text-sm font-medium text-gray-900 nav-link">Classes</a>
+            <a href="#portfolio" class="px-3 py-2 text-sm font-medium text-gray-900 nav-link">Portfolio</a>
+            <a href="#testimonials" class="px-3 py-2 text-sm font-medium text-gray-900 nav-link">Testimonials</a>
+          </div>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="flex items-center sm:hidden">
+          <button 
+            type="button" 
+            class="inline-flex items-center justify-center p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
+            @click="isOpen = !isOpen"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg 
+              x-show="!isOpen" 
+              class="block h-6 w-6" 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg 
+              x-show="isOpen" 
+              class="block h-6 w-6" 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              aria-hidden="true"
+              style="display: none;"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div x-show="isOpen" class="sm:hidden" style="display: none;">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="#home" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100" @click="isOpen = false">Home</a>
+        <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100" @click="isOpen = false">About</a>
+        <a href="#classes" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100" @click="isOpen = false">Classes</a>
+        <a href="#portfolio" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100" @click="isOpen = false">Portfolio</a>
+        <a href="#testimonials" class="block px-3 py-2 text-base font-medium text-gray-900 hover:bg-gray-100" @click="isOpen = false">Testimonials</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section w-full h-screen flex items-center justify-center">
+    <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl" data-aos="fade-up" data-aos-duration="1000">
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">Tetiana Moshenets</h1>
+      <p class="text-xl sm:text-2xl text-white mb-8 font-extralight">Professional Dance Teacher in Miami, Florida</p>
+      <a
+        href="#portfolio"
+        class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium text-gray-900 bg-white hover:bg-gray-100 transition-colors pulse-animation"
+      >
+        View Portfolio
+        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div class="texture-overlay absolute inset-0 opacity-10"></div>
+    <div class="max-w-7xl mx-auto relative">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right" data-aos-duration="1000">
+          <h2 class="text-4xl font-bold mb-6 gradient-text">About Me</h2>
+          <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+            I am Tetiana Moshenets, a professional sports ballroom dance instructor, choreographer, and fitness trainer with over 20 years of international teaching experience. I am based in Vancouver and passionate about helping students of all ages master the art of dance with confidence and joy.
+
+I have worked across Ukraine, the United Arab Emirates, and Canada, preparing dancers for competitions, choreographing performances, and teaching both beginners and advanced students. I specialize in ballroom dance, which consists of two programs: Standard (waltz, tango, foxtrot, Viennese waltz, quickstep) and Latin (cha-cha-cha, samba, rumba, paso doble, jive).
+
+My approach is based on building strong technique, musicality, and expression. I offer private lessons, group classes, choreography coaching, ProAm training, and fitness programs focused on flexibility and posture development.
+          </p>
+          <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+            I hold a Master’s Degree in Choreography from European University and Bachelor’s and Specialist Degrees in Choreography and Organization Management from Kyiv National University of Culture and Arts. I am also a certified sports ballroom dance competition judge.
+          </p>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            I provide professional ballroom and Latin dance training, choreography coaching, ProAm program lessons, fitness and stretching classes, and competition preparation for students of all ages and levels.
+          </p>
+        </div>
+        <div class="relative h-[500px] overflow-hidden shadow-xl" data-aos="fade-left" data-aos-duration="1000">
+          <img 
+            src="portrait-canon2.png" 
+            alt="Tetiana Moshenets" 
+            class="object-cover w-full h-full float-animation"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classes Section -->
+  <section id="classes" class="py-20 px-4 sm:px-6 lg:px-8 gradient-bg relative">
+    <div class="texture-overlay absolute inset-0 opacity-10"></div>
+    <div class="max-w-7xl mx-auto relative">
+      <h2 class="text-4xl font-bold mb-12 text-center text-white" data-aos="fade-up" data-aos-duration="1000">Dance Classes Offered</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass-card p-8 hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <h3 class="text-2xl font-semibold mb-3 text-white">Ballet</h3>
+          <p class="text-white/90 leading-relaxed">
+            Classical ballet training for all ages and skill levels, focusing on technique, posture, and grace. Develop strength, flexibility, and artistic expression through this timeless dance form.
+          </p>
+        </div>
+        <div class="glass-card p-8 hover-scale" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+          <h3 class="text-2xl font-semibold mb-3 text-white">Contemporary</h3>
+          <p class="text-white/90 leading-relaxed">
+            Modern dance styles that combine elements of jazz, lyrical, and classical ballet with freedom of
+            expression. Explore fluid movements and emotional storytelling through this versatile dance style.
+          </p>
+        </div>
+        <div class="glass-card p-8 hover-scale" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+          <h3 class="text-2xl font-semibold mb-3 text-white">Ballroom</h3>
+          <p class="text-white/90 leading-relaxed">
+            Partner dancing including waltz, tango, foxtrot, and Latin dances for social events and competitions. Perfect for couples or individuals looking to learn elegant and sophisticated dance styles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div class="texture-overlay absolute inset-0 opacity-10"></div>
+    <div class="max-w-7xl mx-auto relative">
+      <h2 class="text-4xl font-bold mb-4 gradient-text" data-aos="fade-up" data-aos-duration="1000">Photo Portfolio</h2>
+      <p class="text-xl text-gray-700 mb-12 font-light" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">A collection of performances, classes, and dance events</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Gallery items -->
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="DSC_9205.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="DSC_0198.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">TXT HERE</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20190519_211455_356.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_0203.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_0204.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_0452.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_0454.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20170526_090708.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20180404_160901.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20181114_182414.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20190511_123126.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20190512_082954.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20190519_192111.jpg"
+              alt="Dance Competition Performance 2017"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Annual Ballet Showcase</p>
+          </div>
+        </div>
+
+        
+        
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20170411_115753_004.jpg"
+              alt="Contemporary dance"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Contemporary Workshop</p>
+          </div>
+        </div>
+        
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20170522_112130_580.jpg"
+              alt="Teaching class"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Teaching advanced techniques</p>
+          </div>
+        </div>
+        
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20171101_212337_230.jpg"
+              alt="Dance competition"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Miami Dance Competition 2024</p>
+          </div>
+        </div>
+        
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20191005_225556_568.jpg"
+              alt="Group performance"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+
+          
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Student Group Performance</p>
+          </div>
+        </div>
+        
+        <div class="overflow-hidden shadow-lg hover-scale" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+          <div class="relative h-64 w-full">
+            <img
+              src="IMG_20190520_221015_965.jpg"
+              alt="Team"
+              class="object-cover w-full h-full transition-transform duration-500 hover:scale-110"
+            />
+          </div>
+          <div class="p-4 bg-white">
+            <p class="text-gray-700">Solo Contemporary Piece</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-20 px-4 sm:px-6 lg:px-8 gradient-bg relative">
+    <div class="texture-overlay absolute inset-0 opacity-10"></div>
+    <div class="max-w-7xl mx-auto relative">
+      <h2 class="text-4xl font-bold mb-12 text-center text-white" data-aos="fade-up" data-aos-duration="1000">What My Students Say</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="glass-card p-8 hover-scale" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <p class="italic text-white/90 mb-6 leading-relaxed text-lg">
+            "Tetiana is an exceptional dance teacher. Her patience and attention to detail have helped me improve
+            tremendously in just a few months. Her passion for dance is truly inspiring."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" 
+                alt="Maria S." 
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <p class="font-semibold ml-4 text-white">Maria S.</p>
+          </div>
+        </div>
+        <div class="glass-card p-8 hover-scale" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+          <p class="italic text-white/90 mb-6 leading-relaxed text-lg">
+            "My daughter has been taking ballet lessons with Tetiana for two years now. Her progress has been
+            remarkable, and she absolutely loves her classes! Tetiana has a special way of connecting with children."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" 
+                alt="John D." 
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <p class="font-semibold ml-4 text-white">John D.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white relative">
+    <div class="texture-overlay absolute inset-0 opacity-5"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Contact Information -->
+        <div data-aos="fade-up" data-aos-duration="1000">
+          <h3 class="text-lg font-semibold mb-4 gradient-text">Contact</h3>
+          <div class="flex items-center mb-2 hover-scale">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+            </svg>
+            <a href="mailto:tetiana@example.com" class="hover:text-gray-300 transition-colors">
+              tetiana@example.com
+            </a>
+          </div>
+          <p class="mt-4">Located in Miami, Florida</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+          <h3 class="text-lg font-semibold mb-4 gradient-text">Quick Links</h3>
+          <ul class="space-y-2">
+            <li class="hover-scale">
+              <a href="#home" class="hover:text-gray-300 transition-colors flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                Home
+              </a>
+            </li>
+            <li class="hover-scale">
+              <a href="#about" class="hover:text-gray-300 transition-colors flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                About
+              </a>
+            </li>
+            <li class="hover-scale">
+              <a href="#classes" class="hover:text-gray-300 transition-colors flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                Classes
+              </a>
+            </li>
+            <li class="hover-scale">
+              <a href="#portfolio" class="hover:text-gray-300 transition-colors flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                Portfolio
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Dance Classes -->
+        <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+          <h3 class="text-lg font-semibold mb-4 gradient-text">Dance Classes</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center hover-scale">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Ballet
+            </li>
+            <li class="flex items-center hover-scale">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Contemporary
+            </li>
+            <li class="flex items-center hover-scale">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Ballroom
+            </li>
+            <li class="flex items-center hover-scale">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Private Lessons
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+        <p class="text-sm">© 2025 Tetiana Moshenets. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <button 
+    id="back-to-top" 
+    class="fixed bottom-6 right-6 p-2 bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all duration-300 opacity-0 invisible z-50"
+    onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <script>
+    // Initialize AOS (Animate On Scroll)
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        once: true,
+        duration: 800,
+        easing: 'ease-in-out'
+      });
+      
+      // Back to top button
+      const backToTopButton = document.getElementById('back-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.remove('opacity-0', 'invisible');
+          backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+          backToTopButton.classList.add('opacity-0', 'invisible');
+          backToTopButton.classList.remove('opacity-100', 'visible');
+        }
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80, // Adjust for fixed header
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
